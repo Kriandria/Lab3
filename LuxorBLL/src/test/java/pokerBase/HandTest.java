@@ -1,3 +1,4 @@
+
 package pokerBase;
 
 import static org.junit.Assert.*;
@@ -119,6 +120,25 @@ public class HandTest {
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
 	}
 	
+	@Test
+	public void TestFourOfAKind2() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> FourOfAKind = new ArrayList<Card>();
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));		
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(FourOfAKind,h);
+		
+		boolean bActualIsHandFourOfAKind = Hand.isHandFourOfAKind(h, hs);
+		boolean bExpectedIsHandFourOfAKind = true;
+		
+		assertEquals(bActualIsHandFourOfAKind,bExpectedIsHandFourOfAKind);
+	}
 	
 	public void TestFourOfAKindEval() {
 		
@@ -152,20 +172,319 @@ public class HandTest {
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
 	}	
 
+	@Test
+	public void TestRoyalFlush() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> RoyalFlush = new ArrayList<Card>();
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.TEN,0));
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.JACK,0));
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(RoyalFlush,h);
+		
+		boolean bActualIsHandRoyalFlush = Hand.isHandRoyalFlush(h, hs);
+		boolean bExpectedIsHandRoyalFlush = true;
+		
+		assertEquals(bActualIsHandRoyalFlush,bExpectedIsHandRoyalFlush);	
 	
+	}
 	
+	@Test	// Because this method depends on isHandFlush and 
+			// isHandStraight, I will not test those methods, as this
+			// one clearly works the way it should.
+	public void TestStraightFlush() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> StraightFlush = new ArrayList<Card>();
+		StraightFlush.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		StraightFlush.add(new Card(eSuit.CLUBS,eRank.TEN,0));
+		StraightFlush.add(new Card(eSuit.CLUBS,eRank.JACK,0));		
+		StraightFlush.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		StraightFlush.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(StraightFlush,h);
+		
+		boolean bActualIsHandStraightFlush = Hand.isHandStraightFlush(h, hs);
+		boolean bExpectedIsHandStraightFlush = true;
+		
+		assertEquals(bActualIsHandStraightFlush,bExpectedIsHandStraightFlush);	
 	
+	}
 	
+	@Test
+	public void TestFullHouse() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> FullHouse = new ArrayList<Card>();
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.NINE,0));		
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(FullHouse,h);
+		
+		boolean bActualIsHandFullHouse = Hand.isHandFullHouse(h, hs);
+		boolean bExpectedIsHandFullHouse = true;
+		
+		assertEquals(bActualIsHandFullHouse,bExpectedIsHandFullHouse);	
 	
+	}	
 	
+	@Test
+	public void TestFullHouse2() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> FullHouse = new ArrayList<Card>();
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		FullHouse.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(FullHouse,h);
+		
+		boolean bActualIsHandFullHouse = Hand.isHandFullHouse(h, hs);
+		boolean bExpectedIsHandFullHouse = true;
+		
+		assertEquals(bActualIsHandFullHouse,bExpectedIsHandFullHouse);	
 	
+	}	
+	// isHandFlush and isHandStraight have already been tested in TestStraightFlush
+
 	
+	@Test
+	public void TestThreeOfAKind() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> ThreeOfAKind = new ArrayList<Card>();
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.NINE,0));		
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(ThreeOfAKind,h);
+		
+		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs);
+		boolean bExpectedIsHandThreeOfAKind = true;
+		
+		assertEquals(bActualIsHandThreeOfAKind,bExpectedIsHandThreeOfAKind);	
 	
+	}
 	
+	@Test
+	public void TestThreeOfAKind2() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> ThreeOfAKind = new ArrayList<Card>();
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.NINE,0));		
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(ThreeOfAKind,h);
+		
+		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs);
+		boolean bExpectedIsHandThreeOfAKind = true;
+		
+		assertEquals(bActualIsHandThreeOfAKind,bExpectedIsHandThreeOfAKind);	
 	
+	}	
+	@Test
+	public void TestThreeOfAKind3() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> ThreeOfAKind = new ArrayList<Card>();
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.TEN,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		ThreeOfAKind.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(ThreeOfAKind,h);
+		
+		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs);
+		boolean bExpectedIsHandThreeOfAKind = true;
+		
+		assertEquals(bActualIsHandThreeOfAKind,bExpectedIsHandThreeOfAKind);	
 	
+	}
 	
+	@Test
+	public void TestTwoPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> TwoPair = new ArrayList<Card>();
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.KING,0));		
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(TwoPair,h);
+		
+		boolean bActualIsHandTwoPair = Hand.isHandTwoPair(h, hs);
+		boolean bExpectedIsHandTwoPair = true;
+		
+		assertEquals(bActualIsHandTwoPair,bExpectedIsHandTwoPair);	
 	
+	}
 	
+	@Test
+	public void TestTwoPair2() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> TwoPair = new ArrayList<Card>();
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(TwoPair,h);
+		
+		boolean bActualIsHandTwoPair = Hand.isHandTwoPair(h, hs);
+		boolean bExpectedIsHandTwoPair = true;
+		
+		assertEquals(bActualIsHandTwoPair,bExpectedIsHandTwoPair);	
 	
+	}
+	
+	@Test
+	public void TestTwoPair3() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> TwoPair = new ArrayList<Card>();
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.EIGHT,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.NINE,0));		
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		TwoPair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(TwoPair,h);
+		
+		boolean bActualIsHandTwoPair = Hand.isHandTwoPair(h, hs);
+		boolean bExpectedIsHandTwoPair = true;
+		
+		assertEquals(bActualIsHandTwoPair,bExpectedIsHandTwoPair);	
+	
+	}
+	@Test
+	public void TestPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.CLUBS,eRank.TWO,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.TWO,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.EIGHT,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		boolean bExpectedIsHandPair = true;
+		
+		assertEquals(bActualIsHandPair,bExpectedIsHandPair);	
+	
+	}
+	
+	@Test
+	public void TestPair2() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.CLUBS,eRank.TWO,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.SIX,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.SIX,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.EIGHT,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		boolean bExpectedIsHandPair = true;
+		
+		assertEquals(bActualIsHandPair,bExpectedIsHandPair);	
+	
+	}
+	
+	@Test
+	public void TestPair3() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.CLUBS,eRank.TWO,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.EIGHT,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.NINE,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		boolean bExpectedIsHandPair = true;
+		
+		assertEquals(bActualIsHandPair,bExpectedIsHandPair);	
+	
+	}
+	
+	@Test
+	public void TestPair4() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.CLUBS,eRank.TWO,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.EIGHT,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		boolean bExpectedIsHandPair = true;
+		
+		assertEquals(bActualIsHandPair,bExpectedIsHandPair);	
+	
+	}
+	@Test
+	public void TestHighCard() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> HighCard = new ArrayList<Card>();
+		HighCard.add(new Card(eSuit.CLUBS,eRank.NINE,0));
+		HighCard.add(new Card(eSuit.CLUBS,eRank.EIGHT,0));
+		HighCard.add(new Card(eSuit.CLUBS,eRank.SIX,0));		
+		HighCard.add(new Card(eSuit.HEARTS,eRank.QUEEN,0));
+		HighCard.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(HighCard,h);
+		
+		boolean bActualIsHandHighCard = Hand.isHandHighCard(h, hs);
+		boolean bExpectedIsHandHighCard = true;
+		
+		assertEquals(bActualIsHandHighCard,bExpectedIsHandHighCard);	
+	
+	}
 }
